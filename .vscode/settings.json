@@ -1,21 +1,32 @@
 {
-    // 👉 active le formatage auto au save
-    "editor.formatOnSave": true,
-  
-    // 👉 déclenche les correctifs ESLint (indentation comprise) au save
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
-      "source.fixAll.eslint": "explicit"
-    },
-  
-    // 👉 précise les types de fichiers à valider
-    "eslint.validate": [
-      "javascript",
-      "typescript",
-      "vue"
-    ],
-  
-    // 👉 (optionnel) garde Volar actif pour le formatage Vue
-    "vue.format.enable": false        // désactive l’ancien formatter Vetur
-  }
-  
+  // 👉 active le formatage auto au save
+  "editor.formatOnSave": true,
+  // 👉 déclenche les correctifs ESLint (indentation comprise) au save
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  // 👉 précise les types de fichiers à valider
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  // 👉 (optionnel) garde Volar actif pour le formatage Vue
+  "vue.format.enable": false,
+  "files.exclude": {
+    "**/eslint.config.js": false,
+    "**/tsconfig.json": false,
+    "**/.generated": false,
+    "**/.gitignore": false,
+    "**/.nuxt": false,
+    "**/.vscode": false,
+    "env": false,
+    "**/node_modules": false,
+    "**/package-lock.json": false,
+    "assets/icons/**/*.svg": false,
+    "deploy/": false,
+    ".output": false,
+    "target/": false
+  },
+}
