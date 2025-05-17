@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/ui', '@nuxt/eslint', '@nuxt/image', 'nuxt-rive'],
   nitro: {
-    preset: 'bun'
+    preset: 'static'
   },
   ssr: true,
   css: ['~/assets/css/main.css']
