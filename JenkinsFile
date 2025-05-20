@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+  // Déclencheur GitHub (plugin GitHub)
+  triggers { githubPush() }
+
+  environment {
+    // Répertoire où vit déjà ton dépôt
+    DEPLOY_DIR = '/home/julien/site-perso'
+    // Nom de l’app PM2 ; adapte si nécessaire
+    PM2_APP   = 'site-perso'
+  }
+
+  stages {
+    stage('Deploy & restart') {
+      steps {
+        // Exécute tout sous l’utilisateur julien (si Jenkins tourne toujours sous "jenkins").
+        // Si Jenkins tourne sous julien, supprime simplement la ligne sudo -u julien.
+        sh """
+          sudo -u julien bash -c '
+            cd \$DEPLOY_DIR &&
+            echo "[+] Pull du dernier commit..." &&
+            git pull origin master &&
+            echo "[+] Install des dépendances..." &&
+            bun install &&
+            echo "[+] Build Nuxt..." &&
+            bun run build &&
+            echo "[+] (Re)démarrage PM2..." &&
+            pm2 restart \$PM2_APP || pm2 start "bun run start" --name \$PM2_APP
+          '
+        """
+      }
+    }
+  }
+}
