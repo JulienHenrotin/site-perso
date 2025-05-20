@@ -17,6 +17,7 @@ pipeline {
         // Si Jenkins tourne sous julien, supprime simplement la ligne sudo -u julien.
         sh """
           sudo -u julien bash -c '
+            export PATH="/home/julien/.bun/bin:\$PATH"
             cd \$DEPLOY_DIR &&
             echo "[+] Pull du dernier commit..." &&
             git pull origin master &&
