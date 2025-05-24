@@ -1,35 +1,65 @@
+// Jenkinsfile  ───────────────────────────────────────────────
 pipeline {
-  agent any
-  // Déclencheur GitHub (plugin GitHub)
-  triggers { githubPush() }
+  agent any               // exécute sur n'importe quel agent Linux Jenkins
 
   environment {
-    // Répertoire où vit déjà ton dépôt
-    DEPLOY_DIR = '/home/julien/site-perso'
-    // Nom de l’app PM2 ; adapte si nécessaire
-    PM2_APP   = 'site-perso'
+    // Bun pour l'utilisateur jenkins
+    BUN_INSTALL = "${HOME}/.bun"
+    PATH = "${env.BUN_INSTALL}/bin:${env.PATH}"
+
+    // Dossier (déjà servi par /etc/systemd/system/nuxt-serve.service)
+    DEPLOY_DIR = '/home/julien/site-perso/.output/public'
+  }
+
+  options {
+    // Garde seulement les 15 derniers logs pour ne pas saturer le disque
+    buildDiscarder(logRotator(numToKeepStr: '15'))
   }
 
   stages {
-    stage('Deploy & restart') {
+
+    stage('Checkout') {
       steps {
-        // Exécute tout sous l’utilisateur julien (si Jenkins tourne toujours sous "jenkins").
-        // Si Jenkins tourne sous julien, supprime simplement la ligne sudo -u julien.
-        sh """
-          sudo -u julien bash -c '
-            export PATH="/home/julien/.bun/bin:\$PATH"
-            cd \$DEPLOY_DIR &&
-            echo "[+] Pull du dernier commit..." &&
-            git pull origin master &&
-            echo "[+] Install des dépendances..." &&
-            bun install &&
-            echo "[+] Build Nuxt..." &&
-            bun run build &&
-            echo "[+] (Re)démarrage PM2..." &&
-            pm2 restart \$PM2_APP || pm2 start "bun run start" --name \$PM2_APP
-          '
-        """
+        sshagent(credentials: ['github-ssh']) {
+          checkout scm                       // clone la branche déclencheuse
+        }
       }
+    }
+
+    stage('Install & Build') {
+      steps {
+        sh '''
+          echo "🔧 Installing dependencies..."
+          bun install
+
+          echo "🏗  Building Nuxt static..."
+          bunx nuxi generate                # crée .output/public
+        '''
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh '''
+          echo "🚚 Deploying to ${DEPLOY_DIR} ..."
+          rsync -a --delete .output/public/ ${DEPLOY_DIR}/
+        '''
+      }
+    }
+
+    stage('Restart service') {
+      steps {
+        sh 'sudo -n systemctl restart nuxt-serve'
+      }
+    }
+  }
+
+  post {
+    success {
+      echo '✅  Deployment succeeded!'
+    }
+    failure {
+      echo '❌  Deployment failed!'
     }
   }
 }
