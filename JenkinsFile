@@ -1,4 +1,3 @@
-// Jenkinsfile  ─ déjà présenté, mais avec PATH explicite et sans sudo par défaut
 pipeline {
     agent any
 
