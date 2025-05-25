@@ -1,65 +1,44 @@
-// Jenkinsfile  ───────────────────────────────────────────────
+// Jenkinsfile
 pipeline {
-  agent any               // exécute sur n'importe quel agent Linux Jenkins
+    agent any
 
-  environment {
-    // Bun pour l'utilisateur jenkins
-    BUN_INSTALL = "${HOME}/.bun"
-    PATH = "${env.BUN_INSTALL}/bin:${env.PATH}"
-
-    // Dossier (déjà servi par /etc/systemd/system/nuxt-serve.service)
-    DEPLOY_DIR = '/home/julien/site-perso/.output/public'
-  }
-
-  options {
-    // Garde seulement les 15 derniers logs pour ne pas saturer le disque
-    buildDiscarder(logRotator(numToKeepStr: '15'))
-  }
-
-  stages {
-
-    stage('Checkout') {
-      steps {
-        sshagent(credentials: ['github-ssh']) {
-          checkout scm                       // clone la branche déclencheuse
+    stages {
+        stage('Checkout') {
+            steps {
+                // Récupérer la branche main du dépôt Git
+                git branch: 'main', url: 'https://github.com/JulienHenrotin/site-perso'
+            }
         }
-      }
+        stage('Install Bun et dépendances') {
+            steps {
+                // Installer Bun via le script officiel (s'il n'est pas déjà installé)
+                // (Le script choisit la bonne version et place Bun dans ~/.bun)
+                sh 'curl -fsSL https://bun.sh/install | bash'
+                
+                // Ajouter Bun au PATH (selon la doc officielle):contentReference[oaicite:6]{index=6}
+                sh '''
+                    export BUN_INSTALL="$HOME/.bun"
+                    export PATH="$BUN_INSTALL/bin:$PATH"
+                    # Installer les dépendances du projet avec Bun
+                    bun install
+                '''
+            }
+        }
+        stage('Génération du site statique') {
+            steps {
+                // Lancer la génération statique via Bun
+                // On utilise `bunx nuxi generate` pour exécuter nuxi (Nuxt) avec Bun:contentReference[oaicite:7]{index=7}.
+                sh 'bunx nuxi generate'
+            }
+        }
+        stage('Déploiement') {
+            steps {
+                // Déployer les fichiers statiques générés dans le répertoire Nginx
+                sh 'sudo mkdir -p /var/www/site-perso'
+                sh 'sudo rm -rf /var/www/site-perso/*'
+                sh 'sudo cp -r .output/public/* /var/www/site-perso'
+                // (Éventuellement) recharger Nginx si nécessaire : sh 'sudo systemctl reload nginx'
+            }
+        }
     }
-
-    stage('Install & Build') {
-      steps {
-        sh '''
-          echo "🔧 Installing dependencies..."
-          bun install
-
-          echo "🏗  Building Nuxt static..."
-          bunx nuxi generate                # crée .output/public
-        '''
-      }
-    }
-
-    stage('Deploy') {
-      steps {
-        sh '''
-          echo "🚚 Deploying to ${DEPLOY_DIR} ..."
-          rsync -a --delete .output/public/ ${DEPLOY_DIR}/
-        '''
-      }
-    }
-
-    stage('Restart service') {
-      steps {
-        sh 'sudo -n systemctl restart nuxt-serve'
-      }
-    }
-  }
-
-  post {
-    success {
-      echo '✅  Deployment succeeded!'
-    }
-    failure {
-      echo '❌  Deployment failed!'
-    }
-  }
 }
