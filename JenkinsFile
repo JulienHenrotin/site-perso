@@ -1,44 +1,41 @@
-// Jenkinsfile
+// Jenkinsfile  ─ déjà présenté, mais avec PATH explicite et sans sudo par défaut
 pipeline {
     agent any
+
+    environment {
+        BUN_INSTALL = "${HOME}/.bun"
+        PATH = "${env.PATH}:${env.BUN_INSTALL}/bin"
+        DEPLOY_DIR = "/var/www/site-perso"
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                // Récupérer la branche main du dépôt Git
                 git branch: 'main', url: 'https://github.com/JulienHenrotin/site-perso'
             }
         }
-        stage('Install Bun et dépendances') {
+        stage('Install Bun & deps') {
             steps {
-                // Installer Bun via le script officiel (s'il n'est pas déjà installé)
-                // (Le script choisit la bonne version et place Bun dans ~/.bun)
                 sh 'curl -fsSL https://bun.sh/install | bash'
-                
-                // Ajouter Bun au PATH (selon la doc officielle):contentReference[oaicite:6]{index=6}
-                sh '''
-                    export BUN_INSTALL="$HOME/.bun"
-                    export PATH="$BUN_INSTALL/bin:$PATH"
-                    # Installer les dépendances du projet avec Bun
-                    bun install
-                '''
+                sh 'bun install'
             }
         }
-        stage('Génération du site statique') {
+        stage('Generate static site') {
             steps {
-                // Lancer la génération statique via Bun
-                // On utilise `bunx nuxi generate` pour exécuter nuxi (Nuxt) avec Bun:contentReference[oaicite:7]{index=7}.
                 sh 'bunx nuxi generate'
             }
         }
-        stage('Déploiement') {
+        stage('Deploy') {
             steps {
-                // Déployer les fichiers statiques générés dans le répertoire Nginx
-                sh 'sudo mkdir -p /var/www/site-perso'
-                sh 'sudo rm -rf /var/www/site-perso/*'
-                sh 'sudo cp -r .output/public/* /var/www/site-perso'
-                // (Éventuellement) recharger Nginx si nécessaire : sh 'sudo systemctl reload nginx'
+                sh '''
+                    mkdir -p $DEPLOY_DIR
+                    rm -rf $DEPLOY_DIR/*
+                    cp -r .output/public/* $DEPLOY_DIR
+                '''
             }
         }
     }
 }
+
+
+
