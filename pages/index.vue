@@ -5,7 +5,7 @@
     <div class="flex flex-col md:flex-row items-center justify-center md:space-x-10 space-y-6 md:space-y-0">
       <!-- Avatar + Mascotte -->
       <div class="relative inline-block group">
-        <img src="~/assets/images/moi.jpg" alt="Photo de profil"
+        <img src="~/assets/images/moi.jpg" alt="Photo de profil Julien Henrotin"
           class="rounded-full object-cover size-24 sm:size-48 z-10 relative border-4 border-emerald-500">
         <img src="~/assets/images/juju/hello.png" alt="Mascotte" class="absolute left-0 top-1/2 w-20 sm:w-28
                  -translate-y-1/2 opacity-0
