@@ -17,7 +17,7 @@
       </div>
 
       <!-- Description -->
-      <div class="max-w-xl text-center space-y-4">
+      <div class="max-w-xl text-center space-y-4 px-4 md:px-0">
         <h1 class="text-4xl font-bold text-primary-600">Julien Henrotin</h1>
         <p class="text-lg leading-relaxed">
           Développeur mobile Flutter et front-end web (Nuxt, Vue.js, Tailwind CSS),
