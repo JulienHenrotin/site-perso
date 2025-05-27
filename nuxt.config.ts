@@ -35,5 +35,29 @@ export default defineNuxtConfig({
       cookieKey: 'i18n_redirected',
       redirectOn: 'root'
     }
+  },
+
+  experimental: {
+    typedPages: true
+  },
+
+
+  i18n: {
+    defaultLocale: 'fr',
+    strategy: 'prefix_except_default',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json', language: 'en-US' },
+      { code: 'fr', name: 'Français', file: 'fr.json', language: 'fr-FR' }
+    ],
+
+    lazy: true,
+
+    langDir: 'locales',
+
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    }
   }
 })
