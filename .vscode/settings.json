@@ -15,18 +15,41 @@
   // 👉 (optionnel) garde Volar actif pour le formatage Vue
   "vue.format.enable": false,
   "files.exclude": {
-    "**/eslint.config.js": false,
-    "**/tsconfig.json": false,
-    "**/.generated": false,
-    "**/.gitignore": false,
-    "**/.nuxt": false,
-    "**/.vscode": false,
-    "env": false,
-    "**/node_modules": false,
-    "**/package-lock.json": false,
-    "assets/icons/**/*.svg": false,
-    "deploy/": false,
-    ".output": false,
-    "target/": false
+    ".output": true,
+    "node_modules": true,
+    ".nuxt": true,
+    ".cache": true,
+    ".turbo": true,
+    "dist": true,
+    "coverage": true,
+    ".env": true,
+    ".env.*": true,
+    "*.log": true,
+    "bun.lockb": true,
+    ".git": true,
+    ".gitignore": true,
+    ".vscode": true,
+    "bun.lock": true,
+    "eslint.config.mjs": true,
+    "package-lock.json": true,
+    "tsconfig.json": true
   },
+  // Toggle Excluded Files — configuration de groupe
+  "toggle-excluded-files.groups": {
+    "Bun/Nuxt Generated Files": [
+      ".output",
+      ".nuxt",
+      "node_modules",
+      ".cache",
+      "dist",
+      ".turbo",
+      "coverage",
+      "bun.lockb"
+    ],
+    "Dotenv & Logs": [
+      ".env",
+      ".env.*",
+      "*.log"
+    ]
+  }
 }

@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+/* --- Couleurs projet -------------------------------------------------- */
+:root {
+    /* alias utilisés par Nuxt UI et par Tailwind (`bg-primary`, `text-primary`…) */
+    --ui-primary: #A491D3;
+    /* violet doux                    */
+    --ui-secondary: #818aa3;
+    /* gris bleuté                    */
+    --ui-tertiary: #c5dca0;
+    /* vert pastel                    */
+
+    /* tu peux aussi surcharger info/success/warning/error si besoin        */
+}

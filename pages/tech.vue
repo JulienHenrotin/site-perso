@@ -29,7 +29,8 @@ const techs = [
     { name: 'TypeScript', logo: '/images/logos/typescript.png', hoverRing: 'group-hover:shadow-[0_0_25px_#3178C6]' },
     { name: 'Vue.js', logo: '/images/logos/vue.png', hoverRing: 'group-hover:shadow-[0_0_25px_#42B883]' },
     { name: 'Bootstrap', logo: '/images/logos/bootstrap.png', hoverRing: 'group-hover:shadow-[0_0_25px_#7952B3]' },
-    { name: 'Firebase', logo: '/images/logos/firebase.svg', hoverRing: 'group-hover:shadow-[0_0_25px_#FFCA28]' }
+    { name: 'Firebase', logo: '/images/logos/firebase.svg', hoverRing: 'group-hover:shadow-[0_0_25px_#FFCA28]' },
+    { name: 'Jenkins', logo: '/images/logos/jenkins.png', hoverRing: 'group-hover:shadow-[0_0_25px_#D33833]' }
 ]
 </script>
 
