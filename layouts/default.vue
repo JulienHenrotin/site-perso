@@ -17,13 +17,13 @@
         </header>
 
         <!-- Contenu de la page -->
-        <main class="min-h-screen">
+        <main class="min-h-screen p-4 sm:p-8">
             <NuxtPage />
         </main>
 
         <!-- Slideover paramètres -->
 
-        <SettingsSlideover :open="open" />
+        <SettingsSlideover :open="open" @close="open = false" />
 
     </UApp>
 </template>

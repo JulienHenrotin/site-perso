@@ -11,5 +11,26 @@
     --ui-tertiary: #c5dca0;
     /* vert pastel                    */
 
-    /* tu peux aussi surcharger info/success/warning/error si besoin        */
+    --ui-info: #0EA5E9;
+    /* bleu ciel   */
+    --ui-success: #22C55E;
+    /* vert        */
+    --ui-warning: #FACC15;
+    /* jaune       */
+    --ui-error: #EF4444;
+    /* rouge       */
+    --ui-neutral: #64748B;
+    /* gris ardoise*/
+}
+
+.dark {
+    --ui-primary: #C3B4EC;
+    --ui-secondary: #9AA4C1;
+    --ui-tertiary: #D9E7B8;
+
+    --ui-info: #38BDF8;
+    --ui-success: #4ADE80;
+    --ui-warning: #FDE047;
+    --ui-error: #F87171;
+    --ui-neutral: #CBD5E1;
 }

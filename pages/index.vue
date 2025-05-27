@@ -36,6 +36,12 @@
   </div>
 </template>
 
+<script lang="ts">
+definePageMeta({
+  layout: 'default'
+});
+</script>
+
 <style scoped>
 .group:hover {
   overflow: visible;

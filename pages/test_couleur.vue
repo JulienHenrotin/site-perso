@@ -86,6 +86,9 @@
 </template>
 
 <script setup lang="ts">
+
+
+
 const colorMode = useColorMode();
 const { t, locales, locale, setLocale } = useI18n();
 
