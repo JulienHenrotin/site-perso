@@ -1,0 +1,25 @@
+{
+    "colorTest": {
+        "title": "Test de la palette de couleurs"
+    },
+    "buttons": {
+        "lightMode": "Mode clair",
+        "darkMode": "Mode sombre"
+    },
+    "intro": {
+        "showcase": "Cette page montre comment les {0} ({1}, {2}, {3} …) se propagent à travers {4} les classes Tailwind natives et les composants Nuxt UI.",
+        "updateHex": "Modifiez les valeurs hexadécimales dans {0} et observez chaque élément ci-dessous se rafraîchir instantanément — aucun changement de code requis.",
+        "restart": "N’oubliez pas de redémarrer le serveur de développement après avoir modifié la configuration pour que Tailwind prenne en compte les nouvelles variables.",
+        "noColor": "Aucune couleur ? Vérifiez que les variables CSS {0} sont déclarées et que les noms de couleurs sont listés dans {1}.",
+        "toggle": "Utilisez le bouton (en haut à droite) pour prévisualiser la palette en modes {0} et {1}."
+    },
+    "sections": {
+        "nativeTailwind": "Éléments Tailwind natifs",
+        "nuxtUI": "Composants Nuxt UI"
+    },
+    "alerts": {
+        "primary": "Alerte primaire",
+        "secondary": "Alerte secondaire",
+        "tertiary": "Alerte tertiaire"
+    }
+}
