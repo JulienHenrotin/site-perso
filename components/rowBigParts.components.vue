@@ -5,7 +5,7 @@
         <PartCardComponent title="Formation" bg-class="bg-green-500 dark:bg-green-600"
             img-src="/images/juju/formation.png" />
         <PartCardComponent title="Expériences" bg-class="bg-yellow-500 dark:bg-yellow-600"
-            img-src="/images/juju/forge.png" />
+            img-src="/images/juju/forge.png" to="/experiences" />
         <PartCardComponent title="Portfolio" bg-class="bg-purple-500 dark:bg-purple-600"
             img-src="/images/juju/maquette.png" />
     </div>
