@@ -15,12 +15,7 @@
             </template>
             <p class="mb-4">{{ proj.description }}</p>
             <div class="flex flex-wrap gap-2">
-              <UBadge
-                v-for="tech in proj.techs"
-                :key="tech"
-                color="primary"
-                variant="solid"
-              >
+              <UBadge v-for="tech in proj.techs" :key="tech" color="primary" variant="solid">
                 {{ tech }}
               </UBadge>
             </div>
@@ -40,12 +35,7 @@
             </template>
             <p class="mb-4">{{ proj.description }}</p>
             <div class="flex flex-wrap gap-2">
-              <UBadge
-                v-for="tech in proj.techs"
-                :key="tech"
-                color="primary"
-                variant="solid"
-              >
+              <UBadge v-for="tech in proj.techs" :key="tech" color="primary" variant="solid">
                 {{ tech }}
               </UBadge>
             </div>
@@ -65,12 +55,7 @@
             </template>
             <p class="mb-4">{{ proj.description }}</p>
             <div class="flex flex-wrap gap-2">
-              <UBadge
-                v-for="tech in proj.techs"
-                :key="tech"
-                color="primary"
-                variant="solid"
-              >
+              <UBadge v-for="tech in proj.techs" :key="tech" color="primary" variant="solid">
                 {{ tech }}
               </UBadge>
             </div>
@@ -115,10 +100,10 @@ const categoryLabels = {
   job: 'Job'
 }
 
-const categoryColors = {
-  perso: 'emerald',
-  freelance: 'cyan',
-  job: 'amber'
+const categoryColors: Record<Project['category'], 'primary' | 'secondary' | 'tertiary'> = {
+  perso: 'primary',
+  freelance: 'secondary',
+  job: 'tertiary'
 }
 
 definePageMeta({
